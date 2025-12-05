@@ -1,3 +1,6 @@
+
+from getpass import getuser
+
 # Databricks notebook source
 print("Importing lab testing framework.")
 
@@ -20,7 +23,8 @@ def createDirStructure():
     4: 9,
     5: 5,
   }
-  path = getUsernameFromEnv("")
+  # path = getUsernameFromEnv("")
+  path = Path.cwd() / getuser()
 
   for lesson, questions in lesson_question_d.items():
     for question in range(1, questions+1):
@@ -47,8 +51,9 @@ def getUsernameFromEnv(lesson):
   Exception handling for when the working directory is not in the scope
   (i.e. the Classroom-Setup was not run)
   '''
+  DA_paths_working_dir = "quiz"
   try:
-    return f"{DA.paths.working_dir}-testing-files/{lesson}"
+    return f"{DA_paths_working_dir}-testing-files/{lesson}"
   except NameError:
     raise NameError("Working directory not found. Please re-run the Classroom-Setup at the beginning of the notebook.")
 
